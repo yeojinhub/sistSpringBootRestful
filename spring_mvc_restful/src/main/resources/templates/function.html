@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 파비콘(favicon 설정 링크 -->
+<link rel="shortcut icon" href="http://localhost/images/favicon.ico"/>
+
+<!-- 부트스트랩  CDN -->    
+<link rel="stylesheet" type="text/css"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"/>
+<style type="text/css">
+
+</style>
+
+<!-- JQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+</script>
+
+<!-- Vue CDN -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	const msg2 = "Vue3";
+	function gFunction(){
+		alert("외부 함수");
+	} //gFunction
+}); //ready
+</script>
+
+</head>
+<body>
+<a th:href="@{/}">메인</a>
+<div id="app">
+	<h2>함수 호출</h2>
+	<input type="button" value="클릭" @Click="call()" />
+	<input type="button" value="test호출" @Click="test('오늘은 불타는 금요일')" />
+	<div>
+		<strong>v-model : 양방향 binding</strong>
+		<input type="text" v-model="name" @keydown="useVModel()" />
+		<div>{{ name }}</div>
+		<br>
+		<strong>:value : 단방향 binding</strong>
+		<input type="text" :value="addr" @keydown="useValue()" />
+		<div>{{ addr }}</div>
+		<br>
+		<strong>입력키 정보</strong>
+		<input type="text" @keydown="event" />
+	</div>
+</div>
+
+<script>
+Vue.createApp({
+	data(){
+		return {
+			title:"함수의 호출 및 사용",
+			name:"이여진",
+			addr:"광주시"
+		} //return
+	}, //data
+	methods:{
+		call(){
+			const msg = "함수 호출 : 버튼 클릭";
+			console.log( msg + this.title );
+			alert( msg + this.title );
+			this.test("이것이 Vue다!");
+			
+			// 외부 영역에 있는 변수나 함수는 직접 접근이 가능
+			alert( msg2 );
+			gFunction();
+		}, //call
+		test( msg ){
+			alert("test : "+ msg);
+		}, //test
+		useVModel(){
+			// 양방향 바인딩 : 사용자가 값을 변경하면 변수에 바로 반영
+			// 변수 <-> 입력값
+			console.log("양방향 : "+ this.name);
+		}, //useVModel
+		useValue(){
+			// 단방향 바인딩 : 사용자가 값을 변경하더라도 변수에 반영X
+			// 변수 -> 입력값
+			console.log("단방향 : "+ this.addr);
+		}, //useValue
+		event( evt ){
+			//if(evt.key == "Enter"){
+			if(evt.keyCode == 13){
+				alert("엔터눌림");
+			} //end if
+			alert( evt.key +"/"+ evt.keyCode );
+		} //event
+	} //methods
+}).mount("#app");
+</script>
+
+</body>
+</html>

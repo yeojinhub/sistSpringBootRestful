@@ -29,7 +29,7 @@ public class MemberRestController {
 			msg = "추가성공";
 		} //end if
 		
-		System.out.println(mDTO);
+		System.out.println(memberMap);
 		
 		MessageDTO msgDTO = new MessageDTO(msg);
 		System.out.println("MemberRestController : addMember MessageDTO 값 :"+msgDTO);

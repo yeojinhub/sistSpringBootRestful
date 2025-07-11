@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 파비콘(favicon 설정 링크 -->
+<link rel="shortcut icon" href="http://localhost/images/favicon.ico"/>
+
+<!-- 부트스트랩  CDN -->    
+<link rel="stylesheet" type="text/css"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"/>
+<style type="text/css">
+
+</style>
+
+<!-- JQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+</script>
+
+<!-- Vue CDN -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script type="text/javascript">
+$(function(){
+}); //ready
+</script>
+
+</head>
+<body>
+<a th:href="@{/}">메인</a>
+<div id="app">
+	<h3>객체 복사</h3>
+	<div>{{ userData.name }}</div>
+	<input type="button" value="깊은 복사" @Click="deepcopy()" />
+	<input type="button" value="얕은 복사" @Click="shallowcopy()" />
+</div>
+
+<script>
+Vue.createApp({
+	data(){
+		return {
+			userData:{
+				name:"이여진"
+			} //userData
+		} //return
+	}, //data
+	methods:{
+		deepcopy(){
+			alert("deepcopy 함수 호출");
+			var data={ ...this.userData };
+			alert(`복사된 객체 data : ${ data.name }, 원본 객체 : ${ this.userData.name }`);
+			data.name="유연수";
+			alert(`복사된 객체 : ${ data.name }, 원본 객체 ${ this.userData.name }`);
+		}, //deepcopy
+		shallowcopy(){
+			alert("shallowcopy 함수 호출");
+			var data= this.userData;
+			alert(`복사된 객체 data : ${ data.name }, 원본 객체 : ${ this.userData.name }`);
+			data.name="유연수";
+			alert(`복사된 객체 : ${ data.name }, 원본 객체 ${ this.userData.name }`);
+		} //shallowcopy
+	} //methods
+}).mount("#app");
+</script>
+
+</body>
+</html>
